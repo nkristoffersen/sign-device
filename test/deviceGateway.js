@@ -1,3 +1,5 @@
+var	uuid = require('node-uuid');
+
 module.exports = (function() {
 	var data = [],
       findDevice = function(key, id) {
@@ -18,6 +20,7 @@ module.exports = (function() {
 			return findDevice('id', id);
 		},
 		save: function(code) {
+			code.id = uuid.v4();
 			data.push(code);
 			return code;
 		},

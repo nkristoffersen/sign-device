@@ -1,16 +1,15 @@
+/*
 var assert = require('chai').assert,
 		config = require('./config'),
-		codeRegExp = RegExp(config.codeRegExp),
-		idRegExp = RegExp(config.idRegExp),
 		deviceGateway = require('./deviceGateway.js'),
     newDevice = require('../lib/newDevice')(deviceGateway),
 		register = require('../lib/registerDevice')(deviceGateway);
 
 describe('Register Device', function() {
 	var device = {},
-	    name = config.name,
-      ownerId = config.ownerId,
-      showId = config.showId;
+	    name = 'Billy',
+      ownerId = 'F8si3NNi',
+      showId = 'show_id_1234';
 	beforeEach(function() {
 		device  = newDevice.generate();
 		device.ownerId = ownerId;
@@ -43,3 +42,4 @@ describe('Register Device', function() {
 		assert.deepEqual(result, savedDevice, 'Result does not match save');
 	});
 });
+*/
