@@ -2,13 +2,13 @@ var assert = require('chai').assert,
 		config = require('./config'),
 		codeRegExp = RegExp(config.codeRegExp),
 		idRegExp = RegExp(config.idRegExp),
-		deviceGateway = require('./deviceGateway.js'),
-    newDevice = require('../lib/newDevice')(deviceGateway);
+		deviceGateway = require(config.gateway),
+    newDevice = require(config.newDevice)(deviceGateway);
 
 describe('New Device', function() {
 	it('Should return and save a new device object', function() {
 		var token = config.token,
-		    result = newDevice.generate(token),
+		    result = newDevice(token),
 		    savedDevice = deviceGateway.findByCode(result.code);
 	  console.log(JSON.stringify(result));
 

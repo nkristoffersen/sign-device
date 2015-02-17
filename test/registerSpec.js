@@ -2,17 +2,18 @@ var assert = require('chai').assert,
 		config = require('./config'),
 		codeRegExp = RegExp(config.codeRegExp),
 		idRegExp = RegExp(config.idRegExp),
-		deviceGateway = require('./deviceGateway.js'),
-    newDevice = require('../lib/newDevice')(deviceGateway),
-		register = require('../lib/registerDevice')(deviceGateway);
+		deviceGateway = require(config.gateway),
+    newDevice = require(config.newDevice)(deviceGateway),
+		register = require(config.register)(deviceGateway);
 
 describe('Register Device', function() {
 	var device = {},
 	    name = config.name,
       ownerId = config.ownerId,
+	    token = config.token,
       showId = config.showId;
 	beforeEach(function() {
-		device  = newDevice.generate();
+		device  = newDevice(token);
 		device.ownerId = ownerId;
 		device.showId = showId;
 	});
