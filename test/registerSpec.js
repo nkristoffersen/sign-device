@@ -22,7 +22,7 @@ describe('Register Device', function() {
 	});
 	it('Should find device by code, delete code, update and return device', function() {
 		var 
-		    result = register.activate(device),
+		    result = register(device),
 		    savedDevice = deviceGateway.findById(result.id);
 	  
 	  console.log(JSON.stringify(result));
@@ -37,7 +37,7 @@ describe('Register Device', function() {
 	it('Should add name if set', function() {
 		device.name = name;
 
-		var result = register.activate(device),
+		var result = register(device),
 		    savedDevice = deviceGateway.findById(result.id);
 
 		assert.strictEqual(result.name, name, 'Names do not match');

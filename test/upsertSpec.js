@@ -10,7 +10,7 @@ describe('Upsert Device', function() {
 	beforeEach(function() {
 		var token = config.token,
 		  tempDevice = newDevice(token);
-		device = register.activate({
+		device = register({
 			code: tempDevice.code,
 			token: tempDevice.token,
 			id: tempDevice.id,
