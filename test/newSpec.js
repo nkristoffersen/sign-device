@@ -17,4 +17,21 @@ describe('New Device', function() {
 		assert.strictEqual(result.token, token, 'Tokens do not match');
 		assert.deepEqual(result, savedDevice, 'Result does not match save');
 	});
+	it('Should reject if token is blank', function() {
+		var token = '',
+				result = newDevice(token);
+
+		assert.isUndefined(result, 'Blank token is defined');
+	});
+	it('Should reject if token is omitted', function() {
+		var	result = newDevice();
+
+		assert.isUndefined(result, 'Empty token is defined');
+	});
+	it('Should reject if token < 16 char', function() {
+		var	token = '1jskrff0fcp3a23',
+				result = newDevice(token);
+
+		assert.isUndefined(result, 'Short token accepted');
+	});
 });

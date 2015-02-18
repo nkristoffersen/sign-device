@@ -30,4 +30,16 @@ describe('Upsert Device', function() {
 		  
 		assert.notStrictEqual(result.name, config.name, 'Name not updated');
 	});
+	it('Should reject if no id', function() {
+	  device.id = undefined;
+		result = upsert(device);
+		  
+		assert.isUndefined(result, 'Result is defined');
+	});
+	it('Should reject if no ownerId', function() {
+	  device.ownerId = undefined;
+		result = upsert(device);
+		  
+		assert.isUndefined(result, 'Result is defined');
+	});
 });

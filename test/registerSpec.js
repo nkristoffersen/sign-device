@@ -42,4 +42,46 @@ describe('Register Device', function() {
 		assert.strictEqual(result.name, name, 'Names do not match');
 		assert.deepEqual(result, savedDevice, 'Result does not match save');
 	});
+	it('Should reject if no code', function() {
+		device.code = undefined;
+
+		var result = register(device);
+
+		assert.isUndefined(result, 'No code is saved');
+	});
+	it('Should reject if code is empty string', function() {
+		device.code = '';
+
+		var result = register(device);
+
+		assert.isUndefined(result, 'No code is saved');
+	});
+	it('Should reject if no ownerId', function() {
+		device.ownerId = undefined;
+
+		var result = register(device);
+
+		assert.isUndefined(result, 'No ownerId is saved');
+	});
+	it('Should reject if ownerId is empty string', function() {
+		device.ownerId = '';
+
+		var result = register(device);
+
+		assert.isUndefined(result, 'No ownerId is saved');
+	});
+	it('Should reject if no token', function() {
+		device.token = undefined;
+
+		var result = register(device);
+
+		assert.isUndefined(result, 'No token is saved');
+	});
+	it('Should reject if token is empty string', function() {
+		device.token = '';
+
+		var result = register(device);
+
+		assert.isUndefined(result, 'No token is saved');
+	});
 });

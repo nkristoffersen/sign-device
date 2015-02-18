@@ -1,7 +1,7 @@
 {
 	"codeRegExp": "^(\\w|\\d|-|_){6}$",
 	"idRegExp": "^.{8}-(.{4}-){3}.{12}$",
-	"token": "sample_token",
+	"token": "sample_token_16c",
 	"name": "Billy",
 	"ownerId": "F8si3NNi",
 	"showId": "show_id_1234",
