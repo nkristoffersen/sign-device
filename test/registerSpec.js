@@ -1,6 +1,5 @@
 var assert = require('chai').assert,
 		config = require('./config'),
-		codeRegExp = RegExp(config.codeRegExp),
 		idRegExp = RegExp(config.idRegExp),
 		deviceGateway = require(config.gateway),
     newDevice = require(config.newDevice)(deviceGateway),
@@ -55,33 +54,5 @@ describe('Register Device', function() {
 		var result = register(device);
 
 		assert.isUndefined(result, 'No code is saved');
-	});
-	it('Should reject if no ownerId', function() {
-		device.ownerId = undefined;
-
-		var result = register(device);
-
-		assert.isUndefined(result, 'No ownerId is saved');
-	});
-	it('Should reject if ownerId is empty string', function() {
-		device.ownerId = '';
-
-		var result = register(device);
-
-		assert.isUndefined(result, 'No ownerId is saved');
-	});
-	it('Should reject if no token', function() {
-		device.token = undefined;
-
-		var result = register(device);
-
-		assert.isUndefined(result, 'No token is saved');
-	});
-	it('Should reject if token is empty string', function() {
-		device.token = '';
-
-		var result = register(device);
-
-		assert.isUndefined(result, 'No token is saved');
 	});
 });
