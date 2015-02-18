@@ -8,5 +8,6 @@
 	"gateway": "./deviceGateway.js",
 	"newDevice": "../lib/newDevice",
 	"register": "../lib/registerDevice",
-	"upsert": "../lib/upsertDevice"
+	"upsert": "../lib/upsertDevice",
+	"deleteById": "../lib/deleteByIdDevice"
 }

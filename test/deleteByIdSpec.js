@@ -3,9 +3,9 @@ var assert = require('chai').assert,
 		deviceGateway = require(config.gateway),
     newDevice = require(config.newDevice)(deviceGateway),
 		register = require(config.register)(deviceGateway),
-		upsert = require(config.upsert)(deviceGateway);
+		deleteById = require(config.deleteById)(deviceGateway);
 
-describe('Upsert Device', function() {
+describe('DeleteById Device', function() {
 	var device = {};
 	beforeEach(function() {
 		var token = config.token,
@@ -22,12 +22,9 @@ describe('Upsert Device', function() {
 	afterEach(function() {
 		device = {};
 	});
-	it('Should update device name', function() {
-		var newName = 'Timmy',
-		  result = {};
-	  device.name = newName;
-		result = upsert(device);
-		  
-		assert.notStrictEqual(result.name, config.name, 'Name not updated');
+	it('Should delete device', function() {
+		deleteById(device.id);
+		var found = deviceGateway.findById(device.id);
+		assert(found === undefined, 'Found deleted result');
 	});
 });

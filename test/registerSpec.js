@@ -14,6 +14,7 @@ describe('Register Device', function() {
       showId = config.showId;
 	beforeEach(function() {
 		device  = newDevice(token);
+		device.id = null;
 		device.ownerId = ownerId;
 		device.showId = showId;
 	});
@@ -25,8 +26,6 @@ describe('Register Device', function() {
 		    result = register(device),
 		    savedDevice = deviceGateway.findById(result.id);
 	  
-	  console.log(JSON.stringify(result));
-
 	  assert.isObject(result, 'Result is not an object');
 		assert.match(result.id, idRegExp, 'Id is not valid');
 		assert.isNull(result.code, 'Code not null');

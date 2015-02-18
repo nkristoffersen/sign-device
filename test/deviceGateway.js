@@ -12,7 +12,11 @@ module.exports = (function() {
 				return device;
 			},
 	    sanitize = function(json) {
-				return JSON.parse(JSON.stringify(json));
+				if (json) {
+					return JSON.parse(JSON.stringify(json));
+				} else {
+					return json;
+				}
 			};
 
 	return {
@@ -36,6 +40,19 @@ module.exports = (function() {
 				}
 			});
 			return sanitize(data[index]);
+		},
+		deleteById: function(id) {
+			var index;
+			data.forEach(function(item, i) {
+				if(item.id === id) {
+					index = i;
+				}
+			});
+			if (index !== undefined) {
+				return data.splice(index, 1);
+			} else {
+				return false;
+			}
 		}
 	};
 }());

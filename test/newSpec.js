@@ -10,7 +10,6 @@ describe('New Device', function() {
 		var token = config.token,
 		    result = newDevice(token),
 		    savedDevice = deviceGateway.findByCode(result.code);
-	  console.log(JSON.stringify(result));
 
 		assert.isObject(result, 'Result is not an object');
 		assert.match(result.code, codeRegExp, 'Code is invalid shortid');
