@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require('chai').assert,
 		config = require('./config'),
 		validate = require('../lib/validateDevice.js');
@@ -128,5 +130,29 @@ describe('Validate Device when noDeviceId is true', function() {
 	it('Should accept device without id', function() {
 		var error = validate.device(device, {noDeviceId: true}, cb);
 		assert.isFalse(error, 'Device with id is rejected');
+	});
+});
+describe('Validate Id', function() {
+	var id,
+			cb;
+	beforeEach(function() {
+		id = JSON.parse(JSON.stringify(config.exampleDevice.id));
+		cb = function(error){
+			return error;
+		};
+	});
+	it('Should accept a valid id', function() {
+		var error = validate.id(id, cb);
+		assert.isFalse(error, 'Valid id is rejected');
+	});
+	it('Should reject if id omitted', function() {
+		id = undefined;
+		var error = validate.id(id, cb);
+		assert.isTrue(error, 'Valid id is rejected');
+	});
+	it('Should reject a blank id', function() {
+		id = '';
+		var error = validate.id(id, cb);
+		assert.isTrue(error, 'Valid id is rejected');
 	});
 });

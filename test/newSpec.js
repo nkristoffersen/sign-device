@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require('chai').assert,
 		config = require('./config'),
 		codeRegExp = RegExp(config.codeRegExp),
