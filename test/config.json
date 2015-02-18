@@ -12,9 +12,9 @@
 	"deleteById": "../lib/deleteByIdDevice",
 	"exampleDevice": { 
 		"code": "",
-		 "token": "sample_token_16c",
-			"id": "75ff5d1a-47e8-467d-ab98-98401b3fbe72",
-			"ownerId": "F8si3NNi",
-			"showId": "show_id_1234" 
+		"token": "sample_token_16c",
+		"id": "75ff5d1a-47e8-467d-ab98-98401b3fbe72",
+		"ownerId": "F8si3NNi",
+		"showId": "show_id_1234" 
 	}
 }

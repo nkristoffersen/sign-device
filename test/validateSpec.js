@@ -85,18 +85,48 @@ describe('Validate Device', function () {
 		assert.isTrue(error, 'Blank token is validated');
 	});
 });
-/*
-descrbie('Validate Devide when deviceCode is true', function() {
-	it('Should reject if code', function() {
-		device.code = 'aaaaaaa';
-
-		assert.isTrue(error, 'With code is validated');
+describe('Validate Device when deviceCode is true', function() {
+	var device,
+			cb;
+	beforeEach(function() {
+		device = JSON.parse(JSON.stringify(config.exampleDevice));
+		device.code = 'aaaaaa';
+		cb = function(error){
+			return error;
+		};
+	});
+	it('Should accept valid code', function() {
+		var error = validate.device(device, {deviceCode: true}, cb);
+		assert.isFalse(error, 'Valid code is rejected');
+	});
+	it('Should reject if code is omitted', function() {
+		device.code = undefined;
+		var error = validate.device(device, {deviceCode: true}, cb);
+		assert.isTrue(error, 'No code is validated');
 	});
 	it('Should reject if code is empty string', function() {
 		device.code = '';
-
-		var result = register(device);
-
-		assert.isUndefined(result, 'No code is saved');
+		var error = validate.device(device, {deviceCode: true}, cb);
+		assert.isTrue(error, 'Blank code is validated');
 	});
-	*/
+	it('Should reject if code.length !== 6', function() {
+		device.code = 'aaaaa';
+		var error = validate.device(device, {deviceCode: true}, cb);
+		assert.isTrue(error, 'Short code is validated');
+	});
+});
+describe('Validate Device when noDeviceId is true', function() {
+	var device,
+			cb;
+	beforeEach(function() {
+		device = JSON.parse(JSON.stringify(config.exampleDevice));
+		device.id = undefined;
+		cb = function(error){
+			return error;
+		};
+	});
+	it('Should accept device without id', function() {
+		var error = validate.device(device, {noDeviceId: true}, cb);
+		assert.isFalse(error, 'Device with id is rejected');
+	});
+});
