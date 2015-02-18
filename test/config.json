@@ -10,6 +10,7 @@
 	"register": "../lib/registerDevice",
 	"upsert": "../lib/upsertDevice",
 	"deleteById": "../lib/deleteByIdDevice",
+	"find": "../lib/findDevice",
 	"exampleDevice": { 
 		"code": "",
 		"token": "sample_token_16c",

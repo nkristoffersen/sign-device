@@ -53,6 +53,9 @@ module.exports = (function() {
 			} else {
 				return false;
 			}
+		},
+		setDefault: function(devices) {
+			data = devices;
 		}
 	};
 }());
