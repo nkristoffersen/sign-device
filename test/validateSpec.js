@@ -16,7 +16,6 @@ describe('Validate Token', function() {
 	it('Should accept valid token', function() {
 		var error = validate.token(token, cb);
 
-		console.log('typeof error', typeof error);
 		assert.notOk(error, 'Valid token returns error');
 	});
 	it('Should return error if token is blank', function() {
@@ -54,7 +53,6 @@ describe('Validate Device', function () {
 	});
 	it('Should reject no device', function() {
 		var error = validate.device(undefined, cb);
-		console.log('error', error);
 		assert.isString(error, 'No device validated');
 	});
 	it('Should reject if no device id', function() {

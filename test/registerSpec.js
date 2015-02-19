@@ -15,7 +15,7 @@ describe('Register Device', function() {
       showId = config.showId;
 	beforeEach(function() {
 		device  = newDevice(token);
-		device.id = null;
+		delete device.id;
 		device.ownerId = ownerId;
 		device.showId = showId;
 	});

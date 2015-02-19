@@ -24,6 +24,6 @@ module.exports = function (gateway) {
 		registerDevice: new Factory(registerDevice),
 		findDevice: new Factory(findDevice),
 		upsertDevice: new Factory(upsertDevice),
-		deleteDeviceById: new Factory(deleteByIdDevice)
+		deleteByIdDevice: new Factory(deleteByIdDevice)
 	};
 };
