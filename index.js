@@ -2,11 +2,11 @@
 
 module.exports = function (gateway) {
 	var Factory,
-		deleteDeviceById = require('deleteDeviceById')(gateway),
-		findDevice = require('findDevice')(gateway),
-		newDevice = require('newDevice')(gateway),
-		registerDevice = require('registerDevice')(gateway),
-		upsertDevice = require('upsertDevice')(gateway);
+		deleteByIdDevice = require('./lib/deleteByIdDevice')(gateway),
+		findDevice = require('./lib/findDevice')(gateway),
+		newDevice = require('./lib/newDevice')(gateway),
+		registerDevice = require('./lib/registerDevice')(gateway),
+		upsertDevice = require('./lib/upsertDevice')(gateway);
 
 	Factory = function(action) {
 		return function(options, cb) {
@@ -24,6 +24,6 @@ module.exports = function (gateway) {
 		registerDevice: new Factory(registerDevice),
 		findDevice: new Factory(findDevice),
 		upsertDevice: new Factory(upsertDevice),
-		deleteDeviceById: new Factory(deleteDeviceById)
+		deleteDeviceById: new Factory(deleteByIdDevice)
 	};
 };
