@@ -1,6 +1,6 @@
 {
-  "name": "device-lib",
-  "version": "0.0.0",
+  "name": "sign-device",
+  "version": "0.0.1",
   "description": "Business Logic for Signagely Devices",
   "author": {
     "name": "BenAOchoa",
@@ -8,18 +8,18 @@
     "url": "http://law451.com"
   },
   "repository": "user/repo",
-  "license": "MIT",
+  "license": "Copyright (c) Signagely 2015",
   "files": [
     "index.js"
   ],
   "keywords": [
     "device-lib",
     "device",
-    "register"
+    "register",
+		"signagely"
   ],
   "dependencies": {
-    "node-uuid": "^1.4.2",
-    "shortid": "^2.1.3"
+    "shortid": "2.1.3"
   },
   "devDependencies": {
     "chai": "^1.10.0",
@@ -31,6 +31,7 @@
     "jshint-stylish": "^1.0.0",
     "load-grunt-tasks": "^1.0.0",
     "mocha": "^2.1.0",
+    "node-uuid": "^1.4.2",
     "time-grunt": "^1.0.0"
   },
   "scripts": {
