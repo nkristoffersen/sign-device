@@ -14,6 +14,7 @@ describe('New Device', function() {
 
 		newDevice(token, function (error, result) {
 			savedDevice = deviceGateway.findByCode(result.code);
+			assert.isUndefined(error, 'Returned an error');
 			assert.isObject(result, 'Result is not an object');
 			assert.match(result.code, codeRegExp, 'Code is invalid shortid');
 			assert.match(result.id, idRegExp, 'Id is invalid');

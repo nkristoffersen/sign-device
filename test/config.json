@@ -3,6 +3,7 @@
 	"idRegExp": "^.{8}-(.{4}-){3}.{12}$",
 	"token": "sample_token_16c",
 	"name": "Billy",
+	"id": "19a78263-4e0c-493c-804a-e4f880a737ed",
 	"ownerId": "F8si3NNi",
 	"showId": "show_id_1234",
 	"gateway": "./deviceGateway.js",
@@ -12,16 +13,20 @@
 	"deleteById": "../lib/deleteByIdDevice",
 	"find": "../lib/findDevice",
 	"boundary": "../index",
-	"exampleDevice": { 
+	"registeredDevice": { 
 		"code": "",
 		"token": "sample_token_16c",
 		"id": "75ff5d1a-47e8-467d-ab98-98401b3fbe72",
 		"ownerId": "F8si3NNi",
 		"showId": "show_id_1234" 
 	},
-	"exampleUnregisteredDevice": {
+	"unregisteredDevice": {
 		"code": "XyUXyN",
 		"token": "sample_token_16c",
+		"id": "75ff5d1a-47e8-467d-ab98-98401b3fbe56"
+	},
+	"appReqDevice": {
+		"code": "XyUXyN",
 		"ownerId": "F8si3NNi",
 		"showId": "show_id_1234" 
 	}

@@ -5,27 +5,32 @@ var assert = require('chai').assert,
 		idRegExp = RegExp(config.idRegExp),
 		deviceGateway = require(config.gateway),
     newDevice = require(config.newDevice)(deviceGateway),
-		register = require(config.register)(deviceGateway);
+		register = require(config.register)(deviceGateway),
+		sanitize = function(data) {
+			return JSON.parse(JSON.stringify(data));
+		};
 
 describe('Register Device', function() {
 	var device = {},
-	    name = config.name,
-      ownerId = config.ownerId,
-	    token = config.token,
-      showId = config.showId;
+			devices = [
+				sanitize(config.registeredDevice), 
+				sanitize(config.unregisteredDevice)],
+	    id = sanitize(config.unregisteredDevice.id),
+	    name = sanitize(config.name),
+      ownerId = sanitize(config.appReqDevice.ownerId),
+	    token = sanitize(config.unregisteredDevice.token),
+      showId = sanitize(config.appReqDevice.showId);
 	beforeEach(function() {
-		device  = newDevice(token);
-		delete device.id;
-		device.ownerId = ownerId;
-		device.showId = showId;
+		device  = sanitize(config.appReqDevice);
+		deviceGateway.setDefault(sanitize(devices));
 	});
 	afterEach(function() {
-		device = {}
+		device = {};
 	});
 	it('Should find device by code, delete code, update and return device', function() {
 		var 
 		    result = register(device),
-		    savedDevice = deviceGateway.findById(result.id);
+		    savedDevice = deviceGateway.findById(id);
 	  
 	  assert.isObject(result, 'Result is not an object');
 		assert.match(result.id, idRegExp, 'Id is not valid');
