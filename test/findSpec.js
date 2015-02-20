@@ -9,10 +9,12 @@ var assert = require('chai').assert,
 
 describe('Find Device', function() {
 	var device = {},
-			id;
+			id,
+			token;
 	beforeEach(function() {
 		deviceGateway.setDefault('find', function (data) {
 			id = data.id;
+			token = data.token;
 			device = data.device;
 		});
 	});
@@ -25,5 +27,15 @@ describe('Find Device', function() {
 		});
 		assert.isUndefined(error, 'Error is defined');
 		assert.deepEqual(result, device, 'Find return correct match');
+	});
+	it('Should find device by token', function () {
+		var result, error;
+
+		find({token: token}, function(e, r) {
+			result = r;
+			error = e;
+		});
+		assert.isUndefined(error, 'Error is defined');
+		assert.deepEqual(result, device, 'Find no return correct match');
 	});
 });

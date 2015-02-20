@@ -34,6 +34,9 @@ module.exports = (function() {
     findById: function(id) {
 			return sanitize(findDevice('id', id));
 		},
+    findByToken: function(id) {
+			return sanitize(findDevice('token', id));
+		},
 		save: function(device) {
 			device.id = uuid.v4();
 			data.push(device);
@@ -83,6 +86,7 @@ module.exports = (function() {
 				},
 				find: {
 					id: config.registeredDevice.id,
+					token: config.registeredDevice.token,
 					device: config.registeredDevice
 				},
 				index: {
