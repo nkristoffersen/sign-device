@@ -1,6 +1,6 @@
 {
-  "name": "sign-device",
-  "version": "0.0.1",
+  "name": "sign-npm-device",
+  "version": "0.0.2",
   "description": "Business Logic for Signagely Devices",
   "author": {
     "name": "BenAOchoa",
