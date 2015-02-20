@@ -10,12 +10,7 @@ module.exports = function (gateway) {
 
 	Factory = function(action) {
 		return function(options, cb) {
-			var data = action(options);
-			if (data) {
-				return cb(undefined, data);
-			} else {
-				return cb(true);
-			}
+			return action(options, cb);
 		};
 	};
 

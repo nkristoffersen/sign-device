@@ -22,19 +22,19 @@ describe('Validate Token', function() {
 		var token = '',
 				error = validate.token(token, cb);
 
-		assert.isString(error, 'Blank token validated');
+		assert.ok(error, 'Blank token validated');
 	});
 	it('Should return error if token is omitted', function() {
 		var	token = undefined,
 				error = validate.token(token, cb);
 
-		assert.isString(error, 'Omitted token validated');
+		assert.ok(error, 'Omitted token validated');
 	});
 	it('Should reject if token < 16 char', function() {
 		var	token = '1jskrff0fcp3a23',
 				error = validate.token(token, cb);
 
-		assert.isString(error, 'Short token validated');
+		assert.ok(error, 'Short token validated');
 	});
 });
 
@@ -42,7 +42,7 @@ describe('Validate Device', function () {
 	var device,
 			cb;
 	beforeEach(function() {
-		device = JSON.parse(JSON.stringify(config.exampleDevice));
+		device = JSON.parse(JSON.stringify(config.registeredDevice));
 		cb = function(error){
 			return error;
 		};
@@ -53,94 +53,86 @@ describe('Validate Device', function () {
 	});
 	it('Should reject no device', function() {
 		var error = validate.device(undefined, cb);
-		assert.isString(error, 'No device validated');
+		assert.ok(error, 'No device validated');
 	});
 	it('Should reject if no device id', function() {
 		device.id = undefined;
 		var error = validate.device(device, cb);
-		assert.isString(error, 'No device id validated');
+		assert.ok(error, 'No device id validated');
 	});
 	it('Should reject if device id is empty string', function() {
 		device.id = '';
 		var error = validate.device(device, cb);
-		assert.isString(error, 'Blank device id validated');
+		assert.ok(error, 'Blank device id validated');
 	});
 	it('Should reject if no ownerId', function() {
 		device.ownerId = undefined;
 		var error = validate.device(device, cb);
-		assert.isString(error, 'No ownerId validated');
+		assert.ok(error, 'No ownerId validated');
 	});
 	it('Should reject if ownerId is empty string', function() {
 		device.ownerId = '';
 		var error = validate.device(device, cb);
-		assert.isString(error, 'Blank ownerId validated');
+		assert.ok(error, 'Blank ownerId validated');
 	});
 	it('Should reject if code', function() {
 		device.code = 'aaaaaaa';
 		var error = validate.device(device, cb);
-		assert.isString(error, 'With code is validated');
+		assert.ok(error, 'With code is validated');
 	});
 	it('Should reject if no token', function() {
 		device.token = undefined;
 		var error = validate.device(device, cb);
-		assert.isString(error, 'No token is validated');
+		assert.ok(error, 'No token is validated');
 	});
 	it('Should reject if token is empty string', function() {
 		device.token = '';
 		var error = validate.device(device, cb);
-		assert.isString(error, 'Blank token is validated');
+		assert.ok(error, 'Blank token is validated');
 	});
 });
-describe('Validate Device when deviceCode is true', function() {
+describe('Validate Device when registerDevice is true', function() {
 	var device,
 			cb;
 	beforeEach(function() {
-		device = JSON.parse(JSON.stringify(config.exampleDevice));
+		device = JSON.parse(JSON.stringify(config.registeredDevice));
 		device.code = 'aaaaaa';
+		delete device.id;
+		delete device.token;
 		cb = function(error){
 			return error;
 		};
 	});
-	it('Should accept valid code', function() {
-		var error = validate.device(device, {deviceCode: true}, cb);
-		assert.notOk(error, 'Valid code is rejected');
+	it('Should accept valid register device', function() {
+		var error = validate.device(device, {registerDevice: true}, cb);
+		assert.notOk(error, 'Valid register device is rejected');
 	});
 	it('Should reject if code is omitted', function() {
 		device.code = undefined;
-		var error = validate.device(device, {deviceCode: true}, cb);
-		assert.isString(error, 'No code is validated');
+		var error = validate.device(device, {registerDevice: true}, cb);
+		assert.ok(error, 'No code is validated');
 	});
 	it('Should reject if code is empty string', function() {
 		device.code = '';
-		var error = validate.device(device, {deviceCode: true}, cb);
-		assert.isString(error, 'Blank code is validated');
+		var error = validate.device(device, {registerDevice: true}, cb);
+		assert.ok(error, 'Blank code is validated');
 	});
 	it('Should reject if code.length !== 6', function() {
 		device.code = 'aaaaa';
-		var error = validate.device(device, {deviceCode: true}, cb);
-		assert.isString(error, 'Short code is validated');
+		var error = validate.device(device, {registerDevice: true}, cb);
+		assert.ok(error, 'Short code is validated');
 	});
-});
-describe('Validate Device when noDeviceId is true', function() {
-	var device,
-			cb;
-	beforeEach(function() {
-		device = JSON.parse(JSON.stringify(config.exampleDevice));
-		device.id = undefined;
-		cb = function(error){
-			return error;
-		};
-	});
-	it('Should accept device without id', function() {
-		var error = validate.device(device, {noDeviceId: true}, cb);
-		assert.notOk(error, 'Device with id is rejected');
+	it('Should reject if token present', function() {
+		device.token = 'vaaaaafdt5tg7ye4r';
+		var error = validate.device(device, {registerDevice: true}, cb);
+		assert.ok(error, 'Token is validated');
 	});
 });
 describe('Validate Id', function() {
 	var id,
 			cb;
 	beforeEach(function() {
-		id = JSON.parse(JSON.stringify(config.exampleDevice.id));
+		id = JSON.parse(JSON.stringify(config.id));
 		cb = function(error){
 			return error;
 		};
@@ -152,11 +144,11 @@ describe('Validate Id', function() {
 	it('Should reject if id omitted', function() {
 		id = undefined;
 		var error = validate.id(id, cb);
-		assert.isString(error, 'Valid id is rejected');
+		assert.ok(error, 'Valid id is rejected');
 	});
 	it('Should reject a blank id', function() {
 		id = '';
 		var error = validate.id(id, cb);
-		assert.isString(error, 'Valid id is rejected');
+		assert.ok(error, 'Valid id is rejected');
 	});
 });

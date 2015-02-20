@@ -84,6 +84,12 @@ module.exports = (function() {
 				find: {
 					id: config.registeredDevice.id,
 					device: config.registeredDevice
+				},
+				index: {
+					id: config.registeredDevice.id,
+					token: config.token,
+					registered: config.registeredDevice,
+					request: config.appReqDevice
 				}
 			};
 			return cb(sanitize(actions[action]));

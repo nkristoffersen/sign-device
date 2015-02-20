@@ -11,11 +11,12 @@ describe('Boundary Functions', function() {
 		id,
 		token;
 	beforeEach(function() {
-		device = JSON.parse(JSON.stringify(config.exampleDevice));
-		unregistered = JSON.parse(JSON.stringify(config.exampleUnregisteredDevice));
-		id = device.id;
-		token = config.token;
-		deviceGateway.setDefault([device, unregistered]);
+		deviceGateway.setDefault('index', function(data){
+			device = data.registered;
+			unregistered = data.request;
+			id = device.id;
+			token = device.token;
+		});
 	});
 	it('newDevice should create a new device', function() {
 		boundary.newDevice(token, function(error, data) {
