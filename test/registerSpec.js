@@ -14,7 +14,8 @@ describe('Register Device', function() {
 	var device = {},
 			devices = [
 				sanitize(config.registeredDevice), 
-				sanitize(config.unregisteredDevice)],
+				sanitize(config.unregisteredDevice)
+			],
 	    id = sanitize(config.unregisteredDevice.id),
 	    name = sanitize(config.name),
       ownerId = sanitize(config.appReqDevice.ownerId),
@@ -28,11 +29,16 @@ describe('Register Device', function() {
 		device = {};
 	});
 	it('Should find device by code, delete code, update and return device', function() {
-		var 
-		    result = register(device),
-		    savedDevice = deviceGateway.findById(id);
-	  
-	  assert.isObject(result, 'Result is not an object');
+		var savedDevice, result, error;
+
+		register(device, function (e, r) {
+			error = e;
+			result = r;
+		});
+		
+		savedDevice = deviceGateway.findById(id);
+		
+		assert.isObject(result, 'Result is not an object');
 		assert.match(result.id, idRegExp, 'Id is not valid');
 		assert.isNull(result.code, 'Code not null');
 		assert.strictEqual(result.ownerId, ownerId, 'Names do not match');
@@ -40,26 +46,45 @@ describe('Register Device', function() {
 		assert.deepEqual(result, savedDevice, 'Result does not match save');
 	});
 	it('Should add name if set', function() {
+		var savedDevice, result, error;
+
 		device.name = name;
 
-		var result = register(device),
-		    savedDevice = deviceGateway.findById(result.id);
+		register(device, function (e, r) {
+			error = e;
+			result = r;
+		});
 
+		savedDevice = deviceGateway.findById(result.id);
+
+		assert.isUndefined(error, 'Returned an error');
 		assert.strictEqual(result.name, name, 'Names do not match');
 		assert.deepEqual(result, savedDevice, 'Result does not match save');
 	});
 	it('Should reject if no code', function() {
+		var savedDevice, result, error;
+
 		device.code = undefined;
 
-		var result = register(device);
+		register(device, function (e, r) {
+			error = e;
+			result = r;
+		});
 
+		assert.isDefined(error, 'No error');
 		assert.isUndefined(result, 'No code is saved');
 	});
 	it('Should reject if code is empty string', function() {
+		var savedDevice, result, error;
+
 		device.code = '';
 
-		var result = register(device);
+		register(device, function (e, r) {
+			error = e;
+			result = r;
+		});
 
+		assert.isDefined(error, 'No error');
 		assert.isUndefined(result, 'No code is saved');
 	});
 });
