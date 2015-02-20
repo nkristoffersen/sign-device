@@ -12,18 +12,20 @@ var assert = require('chai').assert,
 
 describe('Register Device', function() {
 	var device = {},
-			devices = [
-				sanitize(config.registeredDevice), 
-				sanitize(config.unregisteredDevice)
-			],
-	    id = sanitize(config.unregisteredDevice.id),
-	    name = sanitize(config.name),
-      ownerId = sanitize(config.appReqDevice.ownerId),
-	    token = sanitize(config.unregisteredDevice.token),
-      showId = sanitize(config.appReqDevice.showId);
+	    id,
+	    name,
+      ownerId,
+	    token,
+      showId;
 	beforeEach(function() {
-		device  = sanitize(config.appReqDevice);
-		deviceGateway.setDefault(sanitize(devices));
+		deviceGateway.setDefault('register', function (data) {
+			device = data.request;
+			id = data.id;
+			name = data.name;
+			ownerId = data.ownerId;
+			token = data.token;
+			showId = data.showId;
+		});
 	});
 	afterEach(function() {
 		device = {};

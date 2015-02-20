@@ -1,6 +1,7 @@
 'use strict';
 
-var	uuid = require('node-uuid');
+var	uuid = require('node-uuid'),
+		config = require('./config.json');
 
 module.exports = (function() {
 	var data = [],
@@ -19,7 +20,12 @@ module.exports = (function() {
 				} else {
 					return json;
 				}
-			};
+			},
+			defaultData = [
+				config.registeredDevice,
+				config.unregisteredDevice
+			];
+
 
 	return {
 		findByCode: function(code) {
@@ -56,8 +62,19 @@ module.exports = (function() {
 				return false;
 			}
 		},
-		setDefault: function(devices) {
-			data = devices;
+		setDefault: function(action, cb) {
+			data = sanitize(defaultData);
+			var actions = {
+				register: {
+					id: config.unregisteredDevice.id,
+					name: config.name,
+					ownerId: config.appReqDevice.ownerId,
+					token: config.unregisteredDevice.token,
+					showId: config.appReqDevice.showId,
+					request: config.appReqDevice
+				}
+			};
+			return cb(sanitize(actions[action]));
 		}
 	};
 }());
