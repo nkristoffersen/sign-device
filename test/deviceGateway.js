@@ -80,6 +80,10 @@ module.exports = (function() {
 				deleteById: {
 					id: config.registeredDevice.id,
 					device: config.registeredDevice
+				},
+				find: {
+					id: config.registeredDevice.id,
+					device: config.registeredDevice
 				}
 			};
 			return cb(sanitize(actions[action]));

@@ -11,11 +11,19 @@ describe('Find Device', function() {
 	var device = {},
 			id;
 	beforeEach(function() {
-		deviceGateway.setDefault([config.exampleDevice]);
-		id = config.exampleDevice.id;
+		deviceGateway.setDefault('find', function (data) {
+			id = data.id;
+			device = data.device;
+		});
 	});
 	it('Should find device by id', function() {
-		var result = find({id: id});
-		assert.deepEqual(result, config.exampleDevice, 'Find return correct match');
+		var result, error;
+		
+		find({id: id}, function(e, r) {
+			result = r;
+			error = e;
+		});
+		assert.isUndefined(error, 'Error is defined');
+		assert.deepEqual(result, device, 'Find return correct match');
 	});
 });
