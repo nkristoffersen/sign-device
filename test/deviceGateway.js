@@ -76,6 +76,10 @@ module.exports = (function() {
 				upsert: {
 					name: config.name,
 					device: config.registeredDevice
+				},
+				deleteById: {
+					id: config.registeredDevice.id,
+					device: config.registeredDevice
 				}
 			};
 			return cb(sanitize(actions[action]));

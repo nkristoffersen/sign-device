@@ -8,25 +8,28 @@ var assert = require('chai').assert,
 		deleteById = require(config.deleteById)(deviceGateway);
 
 describe('DeleteById Device', function() {
-	var device = {};
+	var device = {},
+			id;
 	beforeEach(function() {
-		var token = config.token,
-		  tempDevice = newDevice(token);
-		device = register({
-			code: tempDevice.code,
-			token: tempDevice.token,
-			id: tempDevice.id,
-			ownerId: config.ownerId,
-			showId: config.showId,
-			name: config.name
+		deviceGateway.setDefault('deleteById', function (data) {
+			id = data.id;
+			device = data.device;
 		});
 	});
 	afterEach(function() {
 		device = {};
 	});
 	it('Should delete device', function() {
-		deleteById(device.id);
-		var found = deviceGateway.findById(device.id);
+		var result, error, found;
+
+		deleteById(device.id, function (e, r) {
+			result = r;
+			error = e
+		});
+
+		found = deviceGateway.findById(id);
+		assert.isUndefined(error, 'Error is defined');
+		assert.lengthOf(result, 1, 'Result length is not 1');
 		assert(found === undefined, 'Found deleted result');
 	});
 });
