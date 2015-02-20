@@ -72,6 +72,10 @@ module.exports = (function() {
 					token: config.unregisteredDevice.token,
 					showId: config.appReqDevice.showId,
 					request: config.appReqDevice
+				},
+				upsert: {
+					name: config.name,
+					device: config.registeredDevice
 				}
 			};
 			return cb(sanitize(actions[action]));

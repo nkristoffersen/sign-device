@@ -8,17 +8,12 @@ var assert = require('chai').assert,
 		upsert = require(config.upsert)(deviceGateway);
 
 describe('Upsert Device', function() {
-	var device = {};
+	var device = {},
+			name;
 	beforeEach(function() {
-		var token = config.token,
-		  tempDevice = newDevice(token);
-		device = register({
-			code: tempDevice.code,
-			token: tempDevice.token,
-			id: tempDevice.id,
-			ownerId: config.ownerId,
-			showId: config.showId,
-			name: config.name
+		deviceGateway.setDefault('upsert', function (data) {
+			device = data.device;
+			name = data.name;
 		});
 	});
 	afterEach(function() {
@@ -26,10 +21,16 @@ describe('Upsert Device', function() {
 	});
 	it('Should update device name', function() {
 		var newName = 'Timmy',
-		  result = {};
+		  result = {},
+			error;
 	  device.name = newName;
-		result = upsert(device);
+		upsert(device, function (e, r) {
+			result = r;
+			error = e;
+		});
 		  
-		assert.notStrictEqual(result.name, config.name, 'Name not updated');
+		assert.isUndefined(error, 'Error is defined');
+		assert.notStrictEqual(result.name, name, 'Name not updated');
+		assert.strictEqual(result.name, newName, 'Names do not match');
 	});
 });
