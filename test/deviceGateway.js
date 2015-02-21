@@ -37,6 +37,16 @@ module.exports = (function() {
     findByToken: function(id, callback) {
 			return callback(undefined, sanitize(findDevice('token', id)));
 		},
+    findByOwnerId: function(ownerId, callback) {
+			var results = [];
+			data.forEach(function(entry) {
+				if(entry.ownerId === ownerId) {
+					results.push(entry);
+				}
+			});
+			console.log('results', results);
+			return callback(undefined, results);
+		},
 		save: function(device, callback) {
 			device.id = uuid.v4();
 			data.push(device);
@@ -87,7 +97,9 @@ module.exports = (function() {
 				find: {
 					id: config.registeredDevice.id,
 					token: config.registeredDevice.token,
-					device: config.registeredDevice
+					ownerId: config.registeredDevice.ownerId,
+					device: config.registeredDevice,
+					devices: [config.registeredDevice]
 				},
 				index: {
 					id: config.registeredDevice.id,

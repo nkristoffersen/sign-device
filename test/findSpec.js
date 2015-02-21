@@ -10,12 +10,16 @@ var assert = require('chai').assert,
 describe('Find Device', function() {
 	var device = {},
 			id,
-			token;
+			ownerId,
+			token,
+			devices = [];
 	beforeEach(function() {
 		deviceGateway.setDefault('find', function (data) {
 			id = data.id;
 			token = data.token;
+			ownerId = data.ownerId;
 			device = data.device;
+			devices = data.devices;
 		});
 	});
 	it('Should find device by id', function() {
@@ -37,5 +41,15 @@ describe('Find Device', function() {
 		});
 		assert.isUndefined(error, 'Error is defined');
 		assert.deepEqual(result, device, 'Find no return correct match');
+	});
+	it('Should find all devices for ownerId', function () {
+		var result, error;
+
+		find({ownerId: ownerId}, function(e, r) {
+			result = r;
+			error = e;
+		});
+		assert.isUndefined(error, 'Error is defined');
+		assert.deepEqual(result, devices, 'Find no return correct match');
 	});
 });
