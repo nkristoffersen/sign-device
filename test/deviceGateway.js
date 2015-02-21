@@ -31,18 +31,18 @@ module.exports = (function() {
 		findByCode: function(code, callback) {
 			return callback(undefined, sanitize(findDevice('code', code)));
 		},
-    findById: function(id) {
-			return sanitize(findDevice('id', id));
+    findById: function(id, callback) {
+			return callback(undefined, sanitize(findDevice('id', id)));
 		},
-    findByToken: function(id) {
-			return sanitize(findDevice('token', id));
+    findByToken: function(id, callback) {
+			return callback(undefined, sanitize(findDevice('token', id)));
 		},
-		save: function(device) {
+		save: function(device, callback) {
 			device.id = uuid.v4();
 			data.push(device);
-			return sanitize(findDevice('id', device.id));
+			return callback(undefined, sanitize(findDevice('id', device.id)));
 		},
-		upsert: function(device) {
+		upsert: function(device, callback) {
 			var index;
 			data.forEach(function(item, i) {
 				if(item.id === device.id) {
@@ -50,9 +50,9 @@ module.exports = (function() {
           data[i] = device;
 				}
 			});
-			return sanitize(data[index]);
+			return callback(undefined, sanitize(data[index]));
 		},
-		deleteById: function(id) {
+		deleteById: function(id, callback) {
 			var index;
 			data.forEach(function(item, i) {
 				if(item.id === id) {
@@ -60,9 +60,9 @@ module.exports = (function() {
 				}
 			});
 			if (index !== undefined) {
-				return data.splice(index, 1);
+				return callback(undefined, data.splice(index, 1));
 			} else {
-				return false;
+				return callback('unable to delete device');
 			}
 		},
 		setDefault: function(action, cb) {

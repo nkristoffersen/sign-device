@@ -38,7 +38,7 @@ describe('Register Device', function() {
 			result = r;
 		});
 		
-		savedDevice = deviceGateway.findById(id);
+		savedDevice = deviceGateway.findById(id, function(e,d){return d});
 		
 		assert.isObject(result, 'Result is not an object');
 		assert.match(result.id, idRegExp, 'Id is not valid');
@@ -57,7 +57,7 @@ describe('Register Device', function() {
 			result = r;
 		});
 
-		savedDevice = deviceGateway.findById(result.id);
+		savedDevice = deviceGateway.findById(result.id, function(e,d){return d});
 
 		assert.isUndefined(error, 'Returned an error');
 		assert.strictEqual(result.name, name, 'Names do not match');

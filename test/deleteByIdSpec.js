@@ -27,7 +27,7 @@ describe('DeleteById Device', function() {
 			error = e
 		});
 
-		found = deviceGateway.findById(id);
+		found = deviceGateway.findById(id, function(e,d){return d});
 		assert.isUndefined(error, 'Error is defined');
 		assert.lengthOf(result, 1, 'Result length is not 1');
 		assert(found === undefined, 'Found deleted result');
