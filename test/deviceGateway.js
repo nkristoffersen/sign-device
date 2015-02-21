@@ -28,8 +28,8 @@ module.exports = (function() {
 
 
 	return {
-		findByCode: function(code) {
-			return sanitize(findDevice('code', code));
+		findByCode: function(code, callback) {
+			return callback(undefined, sanitize(findDevice('code', code)));
 		},
     findById: function(id) {
 			return sanitize(findDevice('id', id));

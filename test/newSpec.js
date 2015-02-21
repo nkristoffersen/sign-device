@@ -19,7 +19,7 @@ describe('New Device', function() {
 			result = r;
 		});
 
-		savedDevice = deviceGateway.findByCode(result.code);
+		savedDevice = deviceGateway.findByCode(result.code, function(e,d) {return d});
 		assert.isUndefined(error, 'Returned an error');
 		assert.isObject(result, 'Result is not an object');
 		assert.match(result.code, codeRegExp, 'Code is invalid shortid');
