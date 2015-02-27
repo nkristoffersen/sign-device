@@ -89,4 +89,18 @@ describe('Register Device', function() {
 		assert.isDefined(error, 'No error');
 		assert.isUndefined(result, 'No code is saved');
 	});
+	it('Should change lower case code to upper case and accept', function() {
+		var savedDevice, result, error;
+
+		device.code = device.code.toLowerCase();
+		console.log('lower code', device.code);
+
+		register(device, function (e, r) {
+			error = e;
+			result = r;
+		});
+
+		assert.isDefined(result, 'Lower case code is not saved');
+		assert.isUndefined(error, 'Returns error');
+	});
 });

@@ -44,7 +44,6 @@ module.exports = (function() {
 					results.push(entry);
 				}
 			});
-			console.log('results', results);
 			return callback(undefined, results);
 		},
 		save: function(device, callback) {
