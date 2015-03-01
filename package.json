@@ -10,7 +10,8 @@
   "repository": "user/repo",
   "license": "Copyright (c) Signagely 2015",
   "files": [
-    "index.js"
+    "index.js",
+    "lib"
   ],
   "keywords": [
     "device-lib",
